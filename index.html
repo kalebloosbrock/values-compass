@@ -103,6 +103,16 @@
             margin-bottom: 24px; 
             letter-spacing: normal;
         }
+
+        .section-title {
+            font-family: var(--font-headings);
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--color-text-main);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
         
         .sub-text { 
             font-size: 1.125rem; 
@@ -199,7 +209,7 @@
 
         /* --- DECK & CARDS --- */
         .deck-wrapper {
-            height: 440px;
+            height: 380px; /* Reduced vertical space */
             position: relative;
             display: flex;
             justify-content: center;
@@ -211,7 +221,7 @@
         .value-card-display {
             width: 100%;
             max-width: 320px;
-            height: 400px;
+            height: 380px;
             background: var(--color-primary-bg);
             border: 1px solid var(--color-border);
             border-top: 8px solid var(--color-accent);
@@ -230,7 +240,7 @@
         .flying-card {
             position: fixed;
             width: 320px;
-            height: 400px;
+            height: 380px;
             background: var(--color-primary-bg);
             border: 1px solid var(--color-border);
             border-top: 8px solid var(--color-accent);
@@ -275,13 +285,13 @@
             justify-content: center;
             width: 100%;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 16px auto; /* Tighter bottom margin */
         }
         .btn-sort {
             flex: 1;
             padding: 16px;
             border-radius: 50px;
-            border: 1px solid var(--color-border);
+            border: 2px solid var(--color-border);
             background: var(--color-primary-bg);
             cursor: pointer;
             font-family: var(--font-headings);
@@ -303,11 +313,30 @@
         .btn-sort-very span:first-child { font-size: 1.2rem; }
 
         /* Buckets */
-        .buckets-container { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 12px; }
+        .buckets-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+
+        .buckets-container { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 16px; 
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
         .bucket {
             border: 2px dashed var(--color-border);
             border-radius: var(--radius-md);
-            padding: 20px 8px; 
+            padding: 16px 8px; 
             text-align: center; 
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             background: transparent; 
@@ -318,8 +347,9 @@
         }
         .bucket:hover { border-color: var(--color-text-main); border-style: solid; background: var(--color-primary-bg); box-shadow: var(--shadow-md); transform: translateY(-2px); }
         .bucket.highlight { border-color: var(--color-text-main); border-style: solid; background: var(--color-primary-bg); box-shadow: var(--shadow-md); transform: scale(1.05); }
-        .bucket-label { font-family: var(--font-headings); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 4px; pointer-events: none;}
-        .bucket-count { font-family: var(--font-headings); font-size: 1.5rem; color: var(--color-text-main); font-weight: 800; pointer-events: none;}
+        .bucket-label { font-family: var(--font-headings); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-text-main); margin-bottom: 2px; pointer-events: none;}
+        .bucket-count { font-family: var(--font-headings); font-size: 1.5rem; color: var(--color-text-main); font-weight: 800; pointer-events: none; line-height: 1.2;}
+        .bucket-cue { font-size: 0.65rem; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; pointer-events: none;}
 
         /* Phase 2: Podium & Visual States */
         .podium-grid { 
@@ -330,7 +360,7 @@
         }
         .podium-card { 
             background: var(--color-primary-bg); 
-            border: 1px solid var(--color-border); 
+            border: 2px solid var(--color-border); 
             border-radius: var(--radius-md); 
             padding: 32px 16px; 
             cursor: pointer; 
@@ -352,7 +382,7 @@
         .podium-card-desc { font-family: var(--font-body); font-size: 0.9rem; color: var(--color-text-muted); font-weight: 500; line-height: 1.4; padding: 0 8px; transition: color 0.3s;}
 
         .podium-card.selected-best {
-            background: #FFFAEB; /* Soft yellow tint */
+            background: #FFFAEB; 
             border-color: var(--color-accent); 
             border-top: 6px solid var(--color-accent);
             transform: scale(1.02) translateY(-4px); 
@@ -376,16 +406,24 @@
         .result-row { display: flex; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--color-border); text-align: left; }
         .result-rank { font-family: var(--font-headings); font-size: 2rem; color: var(--color-text-main); width: 60px; font-weight: 800; }
         
+        .journal-block {
+            background-color: #F3F4F6;
+            padding: 32px;
+            border-radius: var(--radius-md);
+            margin-bottom: 40px;
+        }
+
         .journal-input-wrapper { position: relative; display: flex; align-items: flex-start; gap: 12px; margin-top: 8px; }
         .journal-input { 
-            width: 100%; border: 1px solid var(--color-border); background: #F9FAFB; border-radius: var(--radius-sm);
-            font-family: var(--font-body); font-size: 1rem; padding: 16px; resize: vertical; min-height: 80px; color: var(--color-text-main); transition: border-color 0.2s, background 0.2s, box-shadow 0.2s; line-height: 1.6;
+            width: 100%; border: 2px solid var(--color-border); background: var(--color-primary-bg); border-radius: var(--radius-sm);
+            font-family: var(--font-body); font-size: 1rem; padding: 16px; resize: vertical; min-height: 80px; color: var(--color-text-main); transition: border-color 0.2s, box-shadow 0.2s; line-height: 1.6;
         }
-        .journal-input:focus { outline: none; border-color: var(--color-accent); background: var(--color-primary-bg); box-shadow: 0 4px 12px rgba(248, 198, 68, 0.15); }
+        .journal-input:focus { outline: none; border-color: var(--color-accent); box-shadow: 0 4px 12px rgba(248, 198, 68, 0.15); }
         
         .btn-voice {
             background: transparent; border: 2px solid var(--color-border); border-radius: 50px; width: 48px; height: 48px; min-width: 48px; color: var(--color-text-muted);
             cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+            background: var(--color-primary-bg);
         }
         .btn-voice:hover { border-color: var(--color-text-main); color: var(--color-text-main); }
         .btn-voice.recording { background: var(--color-accent); color: var(--color-text-main); border-color: var(--color-accent); }
@@ -434,7 +472,8 @@
         @media (max-width: 600px) {
             .wrapper { padding: 24px 16px; } 
             .card-surface { padding: 40px 20px; border:none; box-shadow:none; border-radius: 0;}
-            .display-text { font-size: 2.2rem; } .podium-grid { gap: 16px; margin: 24px 0; }
+            .display-text { font-size: 2.2rem; } .section-title { font-size: 2rem; }
+            .podium-grid { gap: 12px; margin: 24px 0; }
             .podium-card { padding: 24px 12px; min-height: 200px; }
             .podium-card .card-emoji { font-size: 2rem; margin-bottom: 8px; }
             .podium-card-title { font-size: 0.9rem; } .podium-card-desc { font-size: 0.8rem; }
@@ -446,9 +485,10 @@
             body { background: white; display: block; }
             .wrapper { max-width: 100%; padding: 0; }
             .card-surface { padding: 0; box-shadow: none; border: none;}
-            .btn, .sorting-actions, .progress-track, .buckets-container, .transition-box, .btn-voice { display: none !important; }
+            .btn, .sorting-actions, .progress-track, .buckets-container, .transition-box, .btn-voice, .buckets-header { display: none !important; }
             .journal-section { display: block !important; border: none; margin: 0; padding: 0;}
             .journal-input { border: 1px solid #ccc; border-radius: 0; background: white;}
+            .journal-block { background: white; padding: 0; margin-bottom: 40px; }
         }
     </style>
 </head>
@@ -478,12 +518,12 @@
         <!-- PRE-PHASE 1 -->
         <div id="screen-pre-phase1" class="card-surface hidden">
             <span class="label-text">Part I: Prioritizing</span>
-            <h1 class="display-text">Gaining Clarity</h1>
+            <h1 class="section-title">Gaining Clarity</h1>
             
             <p class="sub-text">
-                You will review 77 distinct values. Rely on your immediate intuition rather than overthinking. Ask yourself: Is this a core driver of my life today, or is it an inherited expectation?
+                On the next screens, you will see 77 values. Your goal is simply to feel for resonance. 
                 <br><br>
-                Sort each value into one of three categories:
+                How important is the presented value to you today? What are your non-negotiables vs nice to haves?
             </p>
 
             <div class="instruction-box">
@@ -525,6 +565,14 @@
         <div id="screen-phase1" class="card-surface hidden" style="padding-top: 40px;">
             <div class="progress-track"><div id="p1-bar" class="progress-fill"></div></div>
             
+            <!-- Global Utility: Start Over -->
+            <div style="position: absolute; top: 16px; right: 24px; z-index: 10;">
+                <button class="btn-text btn-sm" onclick="resetGame()" style="display: flex; align-items: center; gap: 6px; padding-right: 0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                    Start Over
+                </button>
+            </div>
+            
             <div class="deck-wrapper">
                 <div id="active-card" class="value-card-display"></div>
             </div>
@@ -544,22 +592,26 @@
                 </button>
             </div>
 
-            <div style="margin-top:24px; margin-bottom:8px; text-align:center;">
-                <button class="btn-text" onclick="openReviewModal()">Review & Edit Piles</button>
+            <div class="buckets-header">
+                <span class="label-text" style="margin: 0;">Your Piles</span>
+                <button class="btn-text btn-sm" style="padding: 0; text-decoration: underline; text-decoration-color: var(--color-border);" onclick="openReviewModal()">Review & Edit</button>
             </div>
 
             <div class="buckets-container">
                 <div id="bucket-not" class="bucket" onclick="alert('Released values are gone for now.')">
                     <div class="bucket-label">Released</div>
                     <div id="count-not" class="bucket-count">0</div>
+                    <div class="bucket-cue">Tap to view</div>
                 </div>
                 <div id="bucket-somewhat" class="bucket" onclick="openReviewModal('somewhat')">
                     <div class="bucket-label">Somewhat</div>
                     <div id="count-some" class="bucket-count">0</div>
+                    <div class="bucket-cue">Tap to edit</div>
                 </div>
                 <div id="bucket-very" class="bucket" onclick="openReviewModal('very')">
                     <div class="bucket-label">The Core (Max 15)</div>
                     <div id="count-very" class="bucket-count">0</div>
+                    <div class="bucket-cue">Tap to edit</div>
                 </div>
             </div>
         </div>
@@ -567,7 +619,7 @@
         <!-- PRE-PHASE 2 -->
         <div id="screen-pre-phase2" class="card-surface hidden">
             <span class="label-text">Part II: Refining</span>
-            <h1 class="display-text">Finding the Center</h1>
+            <h1 class="section-title">Finding the Center</h1>
             <p class="sub-text">You have identified <span id="trans-count-very" style="color:var(--color-text-main); font-weight:800">0</span> core values. Now we must find the center.</p>
             
             <p class="sub-text" style="font-size:1.05rem; margin-bottom:32px;">When forced to choose, we learn what is truly non-negotiable. We will present your values in groups of four.</p>
@@ -580,7 +632,7 @@
                         <div class="podium-card-title" style="font-size:0.6rem; margin:0;">Value</div>
                     </div>
                     <div style="text-align:left;">
-                        <h4 style="margin-bottom:4px; font-size:1.1rem;">Which is most important?</h4>
+                        <h4 style="margin-bottom:4px; font-size:1.1rem; color:var(--color-accent); text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Which is most important?</h4>
                         <p style="margin:0; font-size:0.95rem; color:var(--color-text-muted); font-weight:500;">If you could only keep one, which would it be?</p>
                     </div>
                 </div>
@@ -591,7 +643,7 @@
                         <div class="podium-card-title" style="font-size:0.6rem; margin:0;">Value</div>
                     </div>
                     <div style="text-align:left;">
-                        <h4 style="color:var(--color-text-muted); margin-bottom:4px; font-size:1.1rem;">Which is least important amongst the group?</h4>
+                        <h4 style="color:var(--color-text-muted); margin-bottom:4px; font-size:1.1rem;">Which is least important?</h4>
                         <p style="margin:0; font-size:0.95rem; color:var(--color-text-muted); font-weight:500;">Of the remaining three, which is the least important?</p>
                     </div>
                 </div>
@@ -605,9 +657,18 @@
 
         <!-- PHASE 2: THE TRADE-OFFS -->
         <div id="screen-phase2" class="card-surface hidden">
-            <div class="progress-track"><div id="p1-bar" class="progress-fill"></div></div>
+            <div class="progress-track"><div id="p2-bar" class="progress-fill"></div></div>
+            
+            <!-- Global Utility: Start Over -->
+            <div style="position: absolute; top: 16px; right: 24px; z-index: 10;">
+                <button class="btn-text btn-sm" onclick="resetGame()" style="display: flex; align-items: center; gap: 6px; padding-right: 0;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                    Start Over
+                </button>
+            </div>
+            
             <span class="label-text" style="margin-top:20px;">The Trade-offs</span>
-            <h2 id="p2-instruction" style="font-size:1.8rem; margin-bottom:20px;">Which is most important?</h2>
+            <h2 id="p2-instruction" style="font-size:1.8rem; margin-bottom:20px; transition: color 0.3s ease;">Which is most important?</h2>
             <div id="podium-grid" class="podium-grid"></div>
             <p style="font-size:0.85rem; color:var(--color-text-muted); margin-top:24px; font-weight:700; letter-spacing:0.05em; font-family:var(--font-headings);">SET <span id="set-current">1</span> OF <span id="set-total">10</span></p>
         </div>
@@ -615,7 +676,7 @@
         <!-- PHASE 3: RESULTS -->
         <div id="screen-results" class="card-surface hidden">
             <span class="label-text">Your True North</span>
-            <h1 class="display-text">The Compass</h1>
+            <h1 class="section-title">The Compass</h1>
             <p class="sub-text" style="margin-bottom:32px;">Here is your internal compass. These values rose to the top through your deliberate choices.</p>
             
             <div id="results-container" style="margin-bottom: 40px;"></div>
@@ -647,7 +708,10 @@
             </div>
             
             <div style="margin-top: 60px; display: flex; gap: 16px; justify-content: center;">
-                <button class="btn btn-outline btn-sm" onclick="resetGame()">Reset Experience</button>
+                <button class="btn btn-outline btn-sm" onclick="resetGame()" style="display: flex; align-items: center; gap: 8px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                    Start Over
+                </button>
             </div>
         </div>
 
@@ -773,13 +837,13 @@
     let state = { ...initialState };
 
     // --- SAVE SYSTEM ---
-    function saveState() { localStorage.setItem('compass_heykaleb_v3', JSON.stringify(state)); }
+    function saveState() { localStorage.setItem('compass_heykaleb_v4', JSON.stringify(state)); }
     function loadState() {
-        const saved = localStorage.getItem('compass_heykaleb_v3');
+        const saved = localStorage.getItem('compass_heykaleb_v4');
         if (saved) { try { state = { ...initialState, ...JSON.parse(saved) }; return true; } catch(e) { return false; } }
         return false;
     }
-    function resetGame() { if(confirm("Begin a new journey?")) { localStorage.removeItem('compass_heykaleb_v3'); location.reload(); } }
+    function resetGame() { if(confirm("Begin a new journey?")) { localStorage.removeItem('compass_heykaleb_v4'); location.reload(); } }
 
     // --- INIT ---
     window.onload = function() {
@@ -949,12 +1013,13 @@
         const instruction = document.getElementById('p2-instruction');
         container.innerHTML = '';
         document.getElementById('set-current').innerText = state.currentSetIndex + 1;
-        document.getElementById('p1-bar').style.width = (state.currentSetIndex / state.maxDiffSets.length) * 100 + "%"; // Use p1-bar style for Phase 2 as well if p2-bar doesn't exist, wait, it uses p1-bar for some reason in original code, I'll keep p2-bar
+        document.getElementById('p2-bar').style.width = (state.currentSetIndex / state.maxDiffSets.length) * 100 + "%";
 
         if (state.currentStepInSet === 0) {
             instruction.innerText = "Which is most important?";
-            instruction.style.color = "var(--color-text-main)";
-            instruction.innerHTML += `<br><span style="font-family:var(--font-body); font-size:1rem; font-weight:500; text-transform:none; color:var(--color-text-muted);">(If you could only keep one, which would it be?)</span>`;
+            instruction.style.color = "var(--color-accent)";
+            instruction.style.textShadow = "0 1px 2px rgba(0,0,0,0.1)";
+            instruction.innerHTML += `<br><span style="font-family:var(--font-body); font-size:1rem; font-weight:500; text-transform:none; color:var(--color-text-muted); text-shadow:none;">(If you could only keep one, which would it be?)</span>`;
             
             currentSet.forEach(id => {
                 const val = valuesDb.find(v => v.id === id);
@@ -970,6 +1035,7 @@
         } else {
             instruction.innerText = "Which is least important?";
             instruction.style.color = "var(--color-text-muted)";
+            instruction.style.textShadow = "none";
             instruction.innerHTML += `<br><span style="font-family:var(--font-body); font-size:1rem; font-weight:500; text-transform:none; color:var(--color-text-muted);">(Of the remaining three, which is the least important?)</span>`;
             
             currentSet.forEach(itemId => {
@@ -1048,7 +1114,7 @@
                 </div>
             `;
             journalContainer.innerHTML += `
-                <div style="margin-bottom:60px;">
+                <div class="journal-block">
                     <h3 style="font-size:1.5rem; color:var(--color-text-main); border-bottom:2px solid var(--color-border); padding-bottom:12px; margin-bottom:24px; text-transform:uppercase;">${item.name} <span style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));">${item.emoji}</span></h3>
                     
                     <label class="label-text" style="color:var(--color-text-main);">Why is this essential to you right now?</label>
@@ -1074,7 +1140,7 @@
     }
 
     // --- HELPERS: Modals & Toasts ---
-    function openReviewModal(filterType) {
+    function openReviewModal() {
         const content = document.getElementById('review-list-content');
         let html = '';
         
