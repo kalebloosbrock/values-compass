@@ -36,8 +36,25 @@
 
         * { box-sizing: border-box; }
 
+        /* Accessibility Focus State */
+        :focus-visible {
+            outline: 3px solid var(--color-text-main);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
         body {
-            background-color: #F9FAFB; /* Soft off-white to let the white cards pop */
+            background-color: #F9FAFB; 
             color: var(--color-text-main);
             font-family: var(--font-body);
             font-weight: 400;
@@ -209,7 +226,7 @@
 
         /* --- DECK & CARDS --- */
         .deck-wrapper {
-            height: 380px; /* Reduced vertical space */
+            height: 380px; 
             position: relative;
             display: flex;
             justify-content: center;
@@ -285,7 +302,7 @@
             justify-content: center;
             width: 100%;
             max-width: 600px;
-            margin: 0 auto 16px auto; /* Tighter bottom margin */
+            margin: 0 auto 16px auto; 
         }
         .btn-sort {
             flex: 1;
@@ -345,7 +362,7 @@
             align-items: center;
             cursor: pointer;
         }
-        .bucket:hover { border-color: var(--color-text-main); border-style: solid; background: var(--color-primary-bg); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .bucket:hover, .bucket:focus-visible { border-color: var(--color-text-main); border-style: solid; background: var(--color-primary-bg); box-shadow: var(--shadow-md); transform: translateY(-2px); }
         .bucket.highlight { border-color: var(--color-text-main); border-style: solid; background: var(--color-primary-bg); box-shadow: var(--shadow-md); transform: scale(1.05); }
         .bucket-label { font-family: var(--font-headings); font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-text-main); margin-bottom: 2px; pointer-events: none;}
         .bucket-count { font-family: var(--font-headings); font-size: 1.5rem; color: var(--color-text-main); font-weight: 800; pointer-events: none; line-height: 1.2;}
@@ -375,7 +392,7 @@
             box-shadow: var(--shadow-sm);
             border-top: 4px solid var(--color-border);
         }
-        .podium-card:hover { border-color: var(--color-text-main); border-top-color: var(--color-accent); transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+        .podium-card:hover, .podium-card:focus-visible { border-color: var(--color-text-main); border-top-color: var(--color-accent); transform: translateY(-6px); box-shadow: var(--shadow-lg); }
         
         .podium-card .card-emoji { font-size: 2.5rem; margin-bottom: 16px; transition: all 0.3s; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
         .podium-card-title { font-family: var(--font-headings); font-weight: 800; font-size: 1.1rem; margin-bottom: 8px; transition: color 0.3s; color: var(--color-text-main); text-transform: uppercase;}
@@ -400,7 +417,7 @@
         }
         .podium-card.selected-worst .card-emoji { filter: grayscale(100%) opacity(0.5); }
         .podium-card.selected-worst .podium-card-title, .podium-card.selected-worst .podium-card-desc { color: #FFFFFF; opacity: 0.7;}
-        .podium-card.locked { pointer-events: none; }
+        .podium-card.locked { pointer-events: none; outline: none; }
 
         /* Results & Journal */
         .result-row { display: flex; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--color-border); text-align: left; }
@@ -574,7 +591,7 @@
             </div>
             
             <div class="deck-wrapper">
-                <div id="active-card" class="value-card-display"></div>
+                <div id="active-card" class="value-card-display" aria-live="polite" aria-atomic="true"></div>
             </div>
 
             <div class="sorting-actions">
@@ -598,17 +615,17 @@
             </div>
 
             <div class="buckets-container">
-                <div id="bucket-not" class="bucket" onclick="alert('Released values are gone for now.')">
+                <div id="bucket-not" class="bucket" role="button" tabindex="0" onclick="alert('Released values are gone for now.')" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); alert('Released values are gone for now.'); }">
                     <div class="bucket-label">Released</div>
                     <div id="count-not" class="bucket-count">0</div>
                     <div class="bucket-cue">Tap to view</div>
                 </div>
-                <div id="bucket-somewhat" class="bucket" onclick="openReviewModal('somewhat')">
+                <div id="bucket-somewhat" class="bucket" role="button" tabindex="0" onclick="openReviewModal('somewhat')" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openReviewModal('somewhat'); }">
                     <div class="bucket-label">Somewhat</div>
                     <div id="count-some" class="bucket-count">0</div>
                     <div class="bucket-cue">Tap to edit</div>
                 </div>
-                <div id="bucket-very" class="bucket" onclick="openReviewModal('very')">
+                <div id="bucket-very" class="bucket" role="button" tabindex="0" onclick="openReviewModal('very')" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openReviewModal('very'); }">
                     <div class="bucket-label">The Core (Max 15)</div>
                     <div id="count-very" class="bucket-count">0</div>
                     <div class="bucket-cue">Tap to edit</div>
@@ -632,7 +649,7 @@
                         <div class="podium-card-title" style="font-size:0.6rem; margin:0;">Value</div>
                     </div>
                     <div style="text-align:left;">
-                        <h4 style="margin-bottom:4px; font-size:1.1rem; color:var(--color-accent); text-shadow: 0 1px 2px rgba(0,0,0,0.1);">Which is most important?</h4>
+                        <h4 style="margin-bottom:4px; font-size:1.1rem;">Which is most important?</h4>
                         <p style="margin:0; font-size:0.95rem; color:var(--color-text-muted); font-weight:500;">If you could only keep one, which would it be?</p>
                     </div>
                 </div>
@@ -657,7 +674,7 @@
 
         <!-- PHASE 2: THE TRADE-OFFS -->
         <div id="screen-phase2" class="card-surface hidden">
-            <div class="progress-track"><div id="p2-bar" class="progress-fill"></div></div>
+            <div class="progress-track"><div id="p1-bar" class="progress-fill"></div></div>
             
             <!-- Global Utility: Start Over -->
             <div style="position: absolute; top: 16px; right: 24px; z-index: 10;">
@@ -718,31 +735,31 @@
     </div>
 
     <!-- MODALS & TOASTS -->
-    <div id="modal-review" class="modal-overlay">
+    <div id="modal-review" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-review-title">
         <div class="modal-content">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-                <h2 style="font-size:1.5rem; margin:0;">Your Piles</h2>
-                <button class="btn-text" onclick="closeReviewModal()">Close</button>
+                <h2 id="modal-review-title" style="font-size:1.5rem; margin:0;">Your Piles</h2>
+                <button class="btn-text" id="btn-close-review" onclick="closeReviewModal()">Close</button>
             </div>
             <div id="review-list-content"></div>
         </div>
     </div>
 
-    <div id="modal-swap" class="modal-overlay">
+    <div id="modal-swap" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-swap-title">
         <div class="modal-content">
-            <h2 style="font-size:1.5rem; margin-bottom:16px;">Your Core is Full.</h2>
+            <h2 id="modal-swap-title" style="font-size:1.5rem; margin-bottom:16px;">Your Core is Full.</h2>
             <p style="margin-bottom:24px; color:var(--color-text-muted); font-size:1rem; font-weight:500;">You have reached the limit of 15 values. To add <strong><span id="swap-new-name" style="color:var(--color-text-main);"></span></strong> to your core, you must shift one existing value to "Somewhat Important".</p>
             <div style="margin-bottom:24px;">
                 <h4 style="font-size:0.85rem; color:var(--color-text-muted); margin-bottom: 12px;">SELECT ONE TO SHIFT:</h4>
                 <div id="swap-list-container"></div>
             </div>
             <div style="text-align:right;">
-                <button class="btn-text" onclick="cancelSwap()">Keep <span id="cancel-name"></span> as Somewhat Important</button>
+                <button class="btn-text" id="btn-close-swap" onclick="cancelSwap()">Keep <span id="cancel-name"></span> as Somewhat Important</button>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
     // --- DATABASE (77 Values) ---
@@ -835,6 +852,7 @@
         scores: {}, counts: {}, journal: {}
     };
     let state = { ...initialState };
+    let lastFocusedElement = null; // Accessibility focus tracking
 
     // --- SAVE SYSTEM ---
     function saveState() { localStorage.setItem('compass_heykaleb_v4', JSON.stringify(state)); }
@@ -873,7 +891,7 @@
         const card = valuesDb[state.deckIndex];
         const display = document.getElementById('active-card');
         display.style.opacity = 1; display.style.transform = "scale(1)";
-        display.innerHTML = `<span class="card-emoji">${card.emoji}</span><div class="card-title">${card.name}</div><div class="card-desc">${card.desc}</div>`;
+        display.innerHTML = `<span class="card-emoji" aria-hidden="true">${card.emoji}</span><div class="card-title">${card.name}</div><div class="card-desc">${card.desc}</div>`;
         document.getElementById('p1-bar').style.width = ((state.deckIndex) / valuesDb.length) * 100 + "%";
     }
 
@@ -1013,7 +1031,7 @@
         const instruction = document.getElementById('p2-instruction');
         container.innerHTML = '';
         document.getElementById('set-current').innerText = state.currentSetIndex + 1;
-        document.getElementById('p2-bar').style.width = (state.currentSetIndex / state.maxDiffSets.length) * 100 + "%";
+        document.getElementById('p1-bar').style.width = (state.currentSetIndex / state.maxDiffSets.length) * 100 + "%"; 
 
         if (state.currentStepInSet === 0) {
             instruction.innerText = "Which is most important?";
@@ -1025,8 +1043,8 @@
                 const val = valuesDb.find(v => v.id === id);
                 if (val) {
                     container.innerHTML += `
-                        <div id="podium-card-${id}" class="podium-card" onclick="handlePodiumPick(${id}, 'best')">
-                            <div class="card-emoji">${val.emoji}</div>
+                        <div id="podium-card-${id}" class="podium-card" role="button" tabindex="0" onclick="handlePodiumPick(${id}, 'best')" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); handlePodiumPick(${id}, 'best'); }">
+                            <div class="card-emoji" aria-hidden="true">${val.emoji}</div>
                             <div class="podium-card-title">${val.name}</div>
                             <div class="podium-card-desc">${val.desc}</div>
                         </div>`;
@@ -1042,16 +1060,18 @@
                 const val = valuesDb.find(v => v.id === itemId);
                 if (val) {
                     let className = "podium-card";
-                    let clickAction = `onclick="handlePodiumPick(${itemId}, 'worst')"`;
+                    let clickAction = `onclick="handlePodiumPick(${itemId}, 'worst')" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); handlePodiumPick(${itemId}, 'worst'); }"`;
+                    let ariaState = 'tabindex="0"';
                     
                     if (itemId === turnBestId) {
                         className += " selected-best locked";
                         clickAction = "";
+                        ariaState = 'tabindex="-1" aria-disabled="true"';
                     }
 
                     container.innerHTML += `
-                        <div id="podium-card-${itemId}" class="${className}" ${clickAction}>
-                            <div class="card-emoji">${val.emoji}</div>
+                        <div id="podium-card-${itemId}" class="${className}" role="button" ${ariaState} ${clickAction}>
+                            <div class="card-emoji" aria-hidden="true">${val.emoji}</div>
                             <div class="podium-card-title">${val.name}</div>
                             <div class="podium-card-desc">${val.desc}</div>
                         </div>`;
@@ -1094,7 +1114,7 @@
                 <div class="result-row">
                     <div class="result-rank">#${index + 1}</div>
                     <div>
-                        <h3 style="margin-bottom:4px;">${item.name} <span style="font-size:1.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">${item.emoji}</span></h3>
+                        <h3 style="margin-bottom:4px;">${item.name} <span style="font-size:1.2rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));" aria-hidden="true">${item.emoji}</span></h3>
                         <div style="font-family:var(--font-body); font-size:1rem; color:var(--color-text-muted); font-weight:500;">${item.desc}</div>
                     </div>
                 </div>`;
@@ -1108,22 +1128,22 @@
             const mkInput = (qSuffix) => `
                 <div class="journal-input-wrapper">
                     <textarea id="${qKeyBase+qSuffix}" class="journal-input" oninput="saveJournal('${qKeyBase+qSuffix}', this.value)">${state.journal[qKeyBase+qSuffix] || ''}</textarea>
-                    <button class="btn-voice" onclick="toggleVoice('${qKeyBase+qSuffix}', this)" title="Voice Dictation">
-                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+                    <button class="btn-voice" onclick="toggleVoice('${qKeyBase+qSuffix}', this)" title="Voice Dictation" aria-label="Dictate answer">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
                     </button>
                 </div>
             `;
             journalContainer.innerHTML += `
                 <div class="journal-block">
-                    <h3 style="font-size:1.5rem; color:var(--color-text-main); border-bottom:2px solid var(--color-border); padding-bottom:12px; margin-bottom:24px; text-transform:uppercase;">${item.name} <span style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));">${item.emoji}</span></h3>
+                    <h3 style="font-size:1.5rem; color:var(--color-text-main); border-bottom:2px solid var(--color-border); padding-bottom:12px; margin-bottom:24px; text-transform:uppercase;">${item.name} <span style="filter:drop-shadow(0 2px 4px rgba(0,0,0,0.1));" aria-hidden="true">${item.emoji}</span></h3>
                     
-                    <label class="label-text" style="color:var(--color-text-main);">Why is this essential to you right now?</label>
+                    <label for="${qKeyBase}_q1" class="label-text" style="color:var(--color-text-main);">Why is this essential to you right now?</label>
                     ${mkInput('_q1')}
                     
-                    <label class="label-text" style="color:var(--color-text-main); margin-top:32px;">How does your current life conflict with this value?</label>
+                    <label for="${qKeyBase}_q2" class="label-text" style="color:var(--color-text-main); margin-top:32px;">How does your current life conflict with this value?</label>
                     ${mkInput('_q2')}
                     
-                    <label class="label-text" style="color:var(--color-text-main); margin-top:32px;">One action to embody this tomorrow:</label>
+                    <label for="${qKeyBase}_q3" class="label-text" style="color:var(--color-text-main); margin-top:32px;">One action to embody this tomorrow:</label>
                     ${mkInput('_q3')}
                 </div>`;
         });
@@ -1141,6 +1161,7 @@
 
     // --- HELPERS: Modals & Toasts ---
     function openReviewModal() {
+        lastFocusedElement = document.activeElement;
         const content = document.getElementById('review-list-content');
         let html = '';
         
@@ -1158,6 +1179,7 @@
 
         content.innerHTML = html;
         document.getElementById('modal-review').classList.add('active');
+        setTimeout(() => { document.getElementById('btn-close-review').focus(); }, 10);
     }
 
     function moveItem(id, from, to) {
@@ -1166,9 +1188,14 @@
         if (to === 'very') state.listVery.push(id); else state.listSome.push(id);
         saveState(); updatePhase1HUD(); openReviewModal(); 
     }
-    function closeReviewModal() { document.getElementById('modal-review').classList.remove('active'); }
+    
+    function closeReviewModal() { 
+        document.getElementById('modal-review').classList.remove('active'); 
+        if (lastFocusedElement) lastFocusedElement.focus();
+    }
 
     function openSwapModal() {
+        lastFocusedElement = document.activeElement;
         const currentVal = valuesDb[state.deckIndex];
         document.getElementById('swap-new-name').innerText = currentVal.name;
         document.getElementById('cancel-name').innerText = currentVal.name;
@@ -1176,22 +1203,29 @@
         container.innerHTML = '';
         state.listVery.forEach(id => {
             const val = valuesDb.find(v => v.id === id);
-            container.innerHTML += `<div class="review-item" style="cursor:pointer;" onclick="executeSwap(${id})"><span style="font-family:var(--font-headings); font-weight:800; color:var(--color-text-main); text-transform:uppercase;">${val.name}</span><span style="font-family:var(--font-headings); font-size:0.8rem; font-weight:800; color:var(--color-text-muted); text-decoration:underline; text-transform:uppercase;">Shift</span></div>`;
+            container.innerHTML += `<div class="review-item" role="button" tabindex="0" style="cursor:pointer;" onclick="executeSwap(${id})" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); executeSwap(${id}); }"><span style="font-family:var(--font-headings); font-weight:800; color:var(--color-text-main); text-transform:uppercase;">${val.name}</span><span style="font-family:var(--font-headings); font-size:0.8rem; font-weight:800; color:var(--color-text-muted); text-decoration:underline; text-transform:uppercase;">Shift</span></div>`;
         });
         document.getElementById('modal-swap').classList.add('active');
+        setTimeout(() => { document.getElementById('btn-close-swap').focus(); }, 10);
     }
+    
     function executeSwap(id) {
         state.listVery = state.listVery.filter(x => x !== id); state.listSome.push(id);
         document.getElementById('modal-swap').classList.remove('active');
+        if (lastFocusedElement) lastFocusedElement.focus();
         animateAndSort('very'); showToast("Value Swapped.");
     }
+    
     function cancelSwap() {
         document.getElementById('modal-swap').classList.remove('active');
+        if (lastFocusedElement) lastFocusedElement.focus();
         animateAndSort('somewhat'); showToast("Added to Somewhat Important.");
     }
+    
     function showToast(msg) {
         const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3500);
     }
+    
     function saveJournal(key, val) { state.journal[key] = val; saveState(); }
 
     // --- VOICE LOGIC ---
