@@ -1099,7 +1099,8 @@
         listVery: [], listSome: [], listNot: [],
         finalList: [], bwSets: [],
         currentSetIndex: 0, currentStepInSet: 0, 
-        scores: {}, counts: {}, journal: {}
+        scores: {}, counts: {}, journal: {},
+        history: [] // Tracks sort history for Undo
     };
     let state = { ...initialState };
     let lastFocusedElement = null; 
@@ -1208,6 +1209,8 @@
 
     function finalizeSort(type) {
         const currentId = valuesDb[state.deckIndex].id;
+        
+        if (!state.history) state.history = [];
         state.history.push({ id: currentId, bucket: type });
 
         if (type === 'very') state.listVery.push(currentId);
@@ -1219,7 +1222,7 @@
     }
 
     function undoLastSort() {
-        if (state.history.length === 0) {
+        if (!state.history || state.history.length === 0) {
             showToast("No actions to undo.");
             return;
         }
