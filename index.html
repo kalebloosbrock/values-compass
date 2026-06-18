@@ -73,12 +73,8 @@
         }
 
         body {
-            background-color: var(--paper);
-            /* Self-contained SVG paper noise — always renders (offline + embeds).
-               To deploy on the web, swap the url() below for the real brand paper asset:
-               url("https://images.squarespace-cdn.com/content/v1/5331e1afe4b05113a3c343ad/f0505980-a52d-4d44-a9b9-2a85453434c2/Slide+Background.jpg?format=2500w") */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-            background-blend-mode: multiply;
+            /* Brand note: textured paper substrate intentionally overridden to plain white per Kaleb's request. */
+            background-color: #FFFFFF;
             color: var(--ink);
             font-family: var(--font-body);
             font-weight: 400;
@@ -134,9 +130,7 @@
 
         /* --- UI Surfaces --- */
         .card-surface {
-            background-color: var(--paper);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='.35'/%3E%3C/svg%3E");
-            background-blend-mode: multiply;
+            background-color: #FFFFFF;
             border: 1px solid var(--line);
             box-shadow: var(--shadow-sm);
             border-radius: var(--radius-lg);
